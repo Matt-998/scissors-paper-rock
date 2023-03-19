@@ -1,67 +1,73 @@
-game();
+playGame();
 
 // Get computer choice with RNG
-function computerChoice() {
-  let x = Math.floor(Math.random() * 3);
-  if (x === 0) {
-    y = "SCISSORS";
-  } else if (x === 1) {
-    y = "PAPER";
+function getComputerChoice() {
+  let intermediate = Math.floor(Math.random() * 3);
+  if (intermediate === 0) {
+    choice = "SCISSORS";
+  } else if (intermediate === 1) {
+    choice = "PAPER";
   } else {
-    y = "ROCK";
+    choice = "ROCK";
   }
-  return y;
+  return choice;
 }
 
 // Get player choice with PROMPT
-function playerChoice() {
-  let y = prompt("Your selection: ");
-  let x = y.toUpperCase();
-  return x;
+function getPlayerChoice() {
+  let input = prompt("Your selection: ");
+  let upperCaseInput = input.toUpperCase();
+  return upperCaseInput;
 }
 
 // Check for winner with computer and player inputs
-function winner(c, p) {
-  if (c === p) {
+function decideWinner(computerChoice, playerChoice) {
+  if (computerChoice === playerChoice) {
     console.log("TIE!");
-  } else if (c === "SCISSORS" && p === "ROCK") {
+  } else if (computerChoice === "SCISSORS" && playerChoice === "ROCK") {
     console.log("You Win! Rock beats Scissors!");
     return 1;
-  } else if (c === "PAPER" && p === "SCISSORS") {
+  } else if (computerChoice === "PAPER" && playerChoice === "SCISSORS") {
     console.log("You Win! Scissors beats Paper!");
     return 1;
-  } else if (c === "ROCK" && p === "PAPER") {
+  } else if (computerChoice === "ROCK" && playerChoice === "PAPER") {
     console.log("You Win! Paper beats Rock!");
     return 1;
   } else {
-    console.log(`You Lose! ${c} beats ${p}!`);
+    console.log(`You Lose! ${computerChoice} beats ${playerChoice}!`);
     return 2;
   }
 }
 
 // Play 1 round (get computer and player inputs and check for winner)
 function playRound() {
-  let c = computerChoice();
-  let p = playerChoice();
-  while (!(p == "ROCK" || p == "SCISSORS" || p == "PAPER")) {
-    p = playerChoice();
+  let computerChoice = getComputerChoice();
+  let playerChoice = getPlayerChoice();
+  while (
+    !(
+      playerChoice == "ROCK" ||
+      playerChoice == "SCISSORS" ||
+      playerChoice == "PAPER"
+    )
+  ) {
+    playerChoice = getPlayerChoice();
   }
-  console.log(`Player - ${p}`);
-  console.log(`Computer - ${c}`);
-  let score = winner(c, p);
-  return score;
+  console.log(`Player - ${playerChoice}`);
+  console.log(`Computer - ${computerChoice}`);
+  let winner = decideWinner(computerChoice, playerChoice);
+  return winner;
 }
 
 // Plays 5 rounds and declares a winner
-function game() {
+function playGame() {
   let playerScore = 0;
   let computerScore = 0;
   console.log("Scissors Paper Rock - Best of 5!");
-  for (let count = 0; count < 5; count++) {
-    let score = playRound();
-    if (score === 1) {
+  for (let x = 0; x < 5; x++) {
+    let winner = playRound();
+    if (winner === 1) {
       playerScore++;
-    } else if (score === 2) {
+    } else if (winner === 2) {
       computerScore++;
     }
     console.log(`Player - ${playerScore}\nComputer - ${computerScore}`);
