@@ -1,5 +1,6 @@
 game();
 
+// Get computer choice with RNG
 function computerChoice() {
   let x = Math.floor(Math.random() * 3);
   if (x === 0) {
@@ -12,12 +13,14 @@ function computerChoice() {
   return y;
 }
 
+// Get player choice with PROMPT
 function playerChoice() {
   let y = prompt("Your selection: ");
   let x = y.toUpperCase();
   return x;
 }
 
+// Check for winner with computer and player inputs
 function winner(c, p) {
   if (c === p) {
     console.log("TIE!");
@@ -36,6 +39,7 @@ function winner(c, p) {
   }
 }
 
+// Play 1 round (get computer and player inputs and check for winner)
 function playRound() {
   let c = computerChoice();
   let p = playerChoice();
@@ -48,6 +52,7 @@ function playRound() {
   return score;
 }
 
+// Plays 5 rounds and declares a winner
 function game() {
   let playerScore = 0;
   let computerScore = 0;
