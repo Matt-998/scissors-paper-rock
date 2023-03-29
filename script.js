@@ -1,4 +1,10 @@
-playGame();
+const scissors = document.querySelector("#scissors");
+const paper = document.querySelector("#paper");
+const rock = document.querySelector("#rock");
+
+scissors.onclick = playRound;
+paper.onclick = playRound;
+rock.onclick = playRound;
 
 // Get computer choice with RNG
 function getComputerChoice() {
@@ -15,9 +21,9 @@ function getComputerChoice() {
 
 // Get player choice with PROMPT
 function getPlayerChoice() {
-  let input = prompt("Your selection: ");
-  let upperCaseInput = input.toUpperCase();
-  return upperCaseInput;
+  let input = this.value;
+  console.log(input);
+  return input;
 }
 
 // Check for winner with computer and player inputs
@@ -42,7 +48,7 @@ function decideWinner(computerChoice, playerChoice) {
 // Play 1 round (get computer and player inputs and check for winner)
 function playRound() {
   let computerChoice = getComputerChoice();
-  let playerChoice = getPlayerChoice();
+  let playerChoice = this.value;
   while (
     !(
       playerChoice == "ROCK" ||
@@ -63,7 +69,7 @@ function playGame() {
   let playerScore = 0;
   let computerScore = 0;
   console.log("Scissors Paper Rock - Best of 5!");
-  for (let x = 0; x < 5; x++) {
+  for (let x = 0; x < 1; x++) {
     let winner = playRound();
     if (winner === 1) {
       playerScore++;
