@@ -1,3 +1,4 @@
+// Declaring all html element variables
 const choiceList = document.querySelectorAll("button.choices");
 const reset = document.querySelector("#reset");
 const displayWinner = document.querySelector("#winner");
@@ -7,17 +8,22 @@ const playerChoiceDisplay = document.querySelector("#playerChoiceDisplay");
 const computerChoiceDisplay = document.querySelector("#computerChoiceDisplay");
 const hardCheck = document.getElementById("hard");
 
+// Global variables manipulated by functions
 let roundCount = 0;
 let playerScore = 0;
 let computerScore = 0;
 let hardMode = false;
+
 initialise();
+
+// Event listeners for all buttons/ checkbox
 for (const choice of choiceList) {
   choice.addEventListener("click", playRound);
 }
 reset.addEventListener("click", initialise);
 hardCheck.addEventListener("click", initialise);
 
+// Restore all game variables to initial state
 function initialise() {
   roundCount = 0;
   playerScore = 0;
@@ -37,7 +43,8 @@ function initialise() {
   computerChoiceDisplay.textContent = "";
 }
 
-// Check for winner with computer and player inputs and update scores
+// Check for winner with computer and player inputs, declare round winner
+// and update scores
 function decideWinner(computerChoice, playerChoice) {
   if (computerChoice === playerChoice) {
     displayWinner.textContent = "TIE! No Points!";
@@ -56,7 +63,7 @@ function decideWinner(computerChoice, playerChoice) {
   }
 }
 
-// Play 1 round (get computer and player inputs and check for winner)
+// Play 1 round (get computer and player inputs and check for round winner)
 function playRound() {
   let playerChoice = this.value;
   let computerChoice = getComputerChoice();
@@ -69,6 +76,11 @@ function playRound() {
   playerScoreDisplay.textContent = `Player: ${playerScore}`;
   computerScoreDisplay.textContent = `Computer: ${computerScore}`;
   roundCount++;
+  declareGameWinner();
+}
+
+// Pulls global variable values and declares a winner based off those values
+function declareGameWinner() {
   if (roundCount === 5) {
     for (choice of choiceList) {
       choice.disabled = true;
@@ -96,6 +108,7 @@ function getComputerChoice() {
   return choice;
 }
 
+// Get computer choice but totally biased to win every time
 function ComputerChoiceHard(playerChoice) {
   if (playerChoice === "SCISSORS") {
     choice = "ROCK";
