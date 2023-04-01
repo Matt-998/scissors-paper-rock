@@ -1,29 +1,46 @@
 const choiceList = document.querySelectorAll("button.choices");
-const paper = document.querySelector("#paper");
-const rock = document.querySelector("#rock");
+const reset = document.querySelector("#reset");
 const displayWinner = document.querySelector("#winner");
 const playerScoreDisplay = document.querySelector("#player");
 const computerScoreDisplay = document.querySelector("#computer");
 const playerChoiceDisplay = document.querySelector("#playerChoiceDisplay");
 const computerChoiceDisplay = document.querySelector("#computerChoiceDisplay");
-
-// To do - make game end
-for (const choice of choiceList) {
-  choice.addEventListener("click", playRound);
-}
+const hardCheck = document.getElementById("hard");
 
 let roundCount = 0;
 let playerScore = 0;
 let computerScore = 0;
-playerScoreDisplay.textContent = `Player: ${playerScore}`;
-computerScoreDisplay.textContent = `Computer: ${computerScore}`;
+let hardMode = false;
+initialise();
+for (const choice of choiceList) {
+  choice.addEventListener("click", playRound);
+}
+reset.addEventListener("click", initialise);
+hardCheck.addEventListener("click", initialise);
 
-displayWinner.textContent = "Scissors Paper Rock - Best of 5!";
+function initialise() {
+  roundCount = 0;
+  playerScore = 0;
+  computerScore = 0;
+  for (choice of choiceList) {
+    choice.disabled = false;
+  }
+  if (hardCheck.checked == true) {
+    hardMode = true;
+  } else {
+    hardMode = false;
+  }
+  playerScoreDisplay.textContent = `Player: ${playerScore}`;
+  computerScoreDisplay.textContent = `Computer: ${computerScore}`;
+  displayWinner.textContent = "Scissors Paper Rock - Best of 5!";
+  playerChoiceDisplay.textContent = "";
+  computerChoiceDisplay.textContent = "";
+}
 
-// Check for winner with computer and player inputs
+// Check for winner with computer and player inputs and update scores
 function decideWinner(computerChoice, playerChoice) {
   if (computerChoice === playerChoice) {
-    displayWinner.textContent = "TIE!";
+    displayWinner.textContent = "TIE! No Points!";
   } else if (computerChoice === "SCISSORS" && playerChoice === "ROCK") {
     displayWinner.textContent = "You Win! Rock beats Scissors!";
     playerScoreDisplay.textContent = `Player: ${playerScore++}`;
@@ -41,8 +58,11 @@ function decideWinner(computerChoice, playerChoice) {
 
 // Play 1 round (get computer and player inputs and check for winner)
 function playRound() {
-  let computerChoice = getComputerChoice();
   let playerChoice = this.value;
+  let computerChoice = getComputerChoice();
+  if (hardMode == true) {
+    computerChoice = ComputerChoiceHard(playerChoice);
+  }
   playerChoiceDisplay.textContent = `You chose ${playerChoice}`;
   computerChoiceDisplay.textContent = `Computer chose ${computerChoice}`;
   decideWinner(computerChoice, playerChoice);
@@ -72,6 +92,17 @@ function getComputerChoice() {
     choice = "PAPER";
   } else {
     choice = "ROCK";
+  }
+  return choice;
+}
+
+function ComputerChoiceHard(playerChoice) {
+  if (playerChoice === "SCISSORS") {
+    choice = "ROCK";
+  } else if (playerChoice === "PAPER") {
+    choice = "SCISSORS";
+  } else {
+    choice = "PAPER";
   }
   return choice;
 }
