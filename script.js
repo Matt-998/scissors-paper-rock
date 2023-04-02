@@ -38,9 +38,9 @@ function initialise() {
   }
   playerScoreDisplay.textContent = `Player: ${playerScore}`;
   computerScoreDisplay.textContent = `Computer: ${computerScore}`;
-  displayWinner.textContent = "Scissors Paper Rock - Best of 5!";
   playerChoiceDisplay.textContent = "";
   computerChoiceDisplay.textContent = "";
+  displayWinner.textContent = "";
 }
 
 // Check for winner with computer and player inputs, declare round winner

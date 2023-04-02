@@ -5,23 +5,64 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="./styles.css" />
     <script src="./script.js" defer></script>
   </head>
   <body>
-    <div>
-      <button class="choices" value="SCISSORS">Scissors</button>
-      <button class="choices" value="PAPER">Paper</button>
-      <button class="choices" value="ROCK">Rock</button>
-      <button id="reset">Reset</button>
+    <div class="mainContainer">
+      <div class="header">
+        <h1>Scissors Paper Rock</h1>
+        <h2>Choose Your Weapon</h2>
+        <h2>Best Of 5 Rounds Wins!</h2>
+      </div>
+      <div class="choicesContainer">
+        <button class="choices" value="SCISSORS">Scissors</button>
+        <button class="choices" value="PAPER">Paper</button>
+        <button class="choices" value="ROCK">Rock</button>
+      </div>
+      <div class="choiceDisplayContainer">
+        <div class="choiceInner">
+          <div>Player Choice</div>
+          <div class="choiceDisplayField">
+            <div id="playerChoiceDisplay"></div>
+          </div>
+        </div>
+        <div class="choiceInner">
+          <div>Computer Choice</div>
+          <div class="choiceDisplayField">
+            <div id="computerChoiceDisplay"></div>
+          </div>
+        </div>
+      </div>
+      <div class="counterContainer">
+        <div class="counterInner">
+          <div>Player Score</div>
+          <div class="scoreDisplayField">
+            <div id="player"></div>
+          </div>
+        </div>
+        <div class="counterInner">
+          <div>Computer Score</div>
+          <div class="scoreDisplayField">
+            <div id="computer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="winner">
+        <div class="winnerInner">
+          <div>Results</div>
+          <div class="winnerDisplayField">
+            <div id="winner"></div>
+          </div>
+        </div>
+      </div>
+      <div class="footerContainer">
+        <button id="reset">Reset</button>
+        <div class="hardMode">
+          <label for="hard">Hard Mode:</label>
+          <input type="checkbox" name="hard" id="hard" />
+        </div>
+      </div>
     </div>
-    <div id="playerChoiceDisplay"></div>
-    <div id="computerChoiceDisplay"></div>
-    <div id="winner"></div>
-    <div id="counter">
-      <div id="player"></div>
-      <div id="computer"></div>
-    </div>
-    <label for="hard">Hard Mode:</label>
-    <input type="checkbox" name="hard" id="hard" />
   </body>
 </html>
