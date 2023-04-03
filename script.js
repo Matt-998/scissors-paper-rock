@@ -21,7 +21,7 @@ for (const choice of choiceList) {
   choice.addEventListener("click", playRound);
 }
 reset.addEventListener("click", initialise);
-hardCheck.addEventListener("click", initialise);
+hardCheck.addEventListener("click", helper);
 
 // Restore all game variables to initial state
 function initialise() {
@@ -31,16 +31,28 @@ function initialise() {
   for (choice of choiceList) {
     choice.disabled = false;
   }
-  if (hardCheck.checked == true) {
-    hardMode = true;
-  } else {
-    hardMode = false;
-  }
   playerScoreDisplay.textContent = `Player: ${playerScore}`;
   computerScoreDisplay.textContent = `Computer: ${computerScore}`;
   playerChoiceDisplay.textContent = "";
   computerChoiceDisplay.textContent = "";
   displayWinner.textContent = "";
+}
+
+function helper() {
+  initialise();
+  hardModeToggle();
+}
+
+function hardModeToggle() {
+  if (hardCheck.value == "OFF") {
+    hardCheck.value = "ON";
+    hardMode = true;
+    hardCheck.classList.toggle("hardMode");
+  } else {
+    hardCheck.value = "OFF";
+    hardMode = false;
+    hardCheck.classList.toggle("hardMode");
+  }
 }
 
 // Check for winner with computer and player inputs, declare round winner
@@ -86,6 +98,8 @@ function declareGameWinner() {
       choice.disabled = true;
       if (playerScore > computerScore) {
         displayWinner.textContent = "Congratulations! You WIN!";
+      } else if (hardMode === true) {
+        displayWinner.textContent = "Bad 'luck'! You LOSE!";
       } else if (playerScore < computerScore) {
         displayWinner.textContent = "Bad luck! You LOSE!";
       } else if (playerScore === computerScore) {
